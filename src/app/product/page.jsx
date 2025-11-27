@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const page = () => {
@@ -37,17 +38,18 @@ const page = () => {
 
       <div className="mx-auto w-full max-w-325 grid grid-cols-3 gap-x-1 gap-y-1">
         {cards.map((card) => (
-          <div key={card.id} className="h-50 w-100 border-2">
-            <Image
-              src={card.thumbnail}
-              className="h-20 w-30"
-              height={80}
-              width={120}
-              alt=""
-              srcset=""
-            />
-            <h1>{card.id}</h1>
-          </div>
+          <Link key={card.id} href={`${card.id}`}>
+            <div className="h-70 w-100 border-2">
+              <div className="h-40 w-full flex items-center justify-center border-2">
+                img
+              </div>
+              <div className="text-part">
+                <h1 className="font-bold text-center">{card.title}</h1>
+                <h1 className="">Category:{card.category}</h1>
+              </div>
+              <p>{card.description.slice(0, 30)} <span className="text-sky-500">See more.....</span></p>
+            </div>
+          </Link>
         ))}
       </div>
     </div>

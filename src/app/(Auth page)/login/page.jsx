@@ -1,10 +1,59 @@
-"use client"
-import React from 'react'
+"use client";
+import { AuthContext } from "@/Auth/AuthContext";
+import Link from "next/link";
+import React, { use } from "react";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
-  return (
-    <div>Login</div>
-  )
-}
+  const { registerEmail, signInGoogle } = use(AuthContext);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
-export default Login
+  const handleForm = async (e) => {
+    console.log(e);
+    const { email, password } = e;
+    registerEmail(email, password);
+  };
+  return (
+    <div className=" w-full h-[55vh] flex items-center justify-center">
+      <form
+        onSubmit={handleSubmit(handleForm)}
+        className="w-80 h-95 flex flex-col gap-y-5 border-2 rounded-xl px-5 py-2"
+      >
+        <fieldset className="fieldset flex flex-col gap-y-3 mt-8">
+          <label className="label">Email</label>
+          <input
+            type="email"
+            name="email"
+            className="input"
+            placeholder="Email"
+            {...register("email")}
+          />
+          <label className="label">Password</label>
+          <input
+            type="password"
+            className="input"
+            placeholder="Password"
+            name="password"
+            {...register("password")}
+          />
+          <div className="flex w-full justify-center mt-2.5">
+            <button onClick={() => signInGoogle()} className="btn bg-sky-500">
+              Sign Up with Google
+            </button>
+          </div>
+          <Link href={`/register`} className="">
+            Dont have an account? <span className="text-blue-500">sign up</span>
+          </Link>
+          <button className="btn btn-neutral  bg-sky-500 mt-5">Login</button>
+        </fieldset>
+      </form>
+    </div>
+  );
+};
+
+export default Login;

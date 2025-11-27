@@ -12,7 +12,7 @@ const Navbar = () => {
     </div>
   );
 
-  const { b, userInfo } = use(AuthContext);
+  const { b, userInfo, signOutUser } = use(AuthContext);
   return (
     <div>
       <div className="navbar shadow-sm">
@@ -47,9 +47,14 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">{links}</ul>
         </div>
         <div className="navbar-end">
-          <button className="btn">
+          <button className="btn bg-transparent shadow-none">
             {userInfo ? (
-              <button className="btn bg-red-500 text-white">Log Out</button>
+              <button
+                onClick={() => signOutUser()}
+                className="btn bg-red-500  text-white"
+              >
+                Log Out
+              </button>
             ) : (
               <Link href="/register" className="btn">
                 Register

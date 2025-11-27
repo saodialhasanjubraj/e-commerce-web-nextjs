@@ -3,7 +3,10 @@ import React, { useState } from "react";
 import { AuthContext } from "./AuthContext";
 import {
   createUserWithEmailAndPassword,
+  GoogleAuthProvider,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
 } from "firebase/auth";
 import { auth } from "@/firebase.init";
 
@@ -27,11 +30,29 @@ const AuthProvider = ({ children }) => {
     });
   };
 
+  // * sign Out User....................
+  const signOutUser = () => {
+    return signOut(auth)
+      .then(() => alert("Sign out successfull"))
+      .catch((error) => console.log(error));
+  };
+
+  //* Sign in with Google ................
+  const provider = new GoogleAuthProvider();
+  const signInGoogle = () => {
+    return signInWithPopup(auth, provider)
+      .then((user) => {
+        setUserInfo(user.user);
+      })
+      .catch((error) => console.log(error));
+  };
   const data = {
     b,
     userInfo,
     registerEmail,
     signInEmail,
+    signOutUser,
+    signInGoogle,
   };
   return <AuthContext value={data}>{children}</AuthContext>;
 };
