@@ -1,11 +1,12 @@
 "use client";
 import { AuthContext } from "@/Auth/AuthContext";
 import Link from "next/link";
+// import { useRouter } from "next/router";
 import React, { use } from "react";
 import { useForm } from "react-hook-form";
 
 const Register = () => {
-  const { registerEmail, signInGoogle } = use(AuthContext);
+  const { registerEmail, signInGoogle, userInfo } = use(AuthContext);
   const {
     register,
     handleSubmit,
@@ -13,10 +14,14 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
+  // const router = useRouter();
   const handleForm = async (e) => {
     console.log(e);
     const { email, password } = e;
     registerEmail(email, password);
+    // {
+    //   userInfo && router.push('/home');
+    // }
   };
   return (
     <div className=" w-full h-[55vh] flex items-center justify-center">
@@ -49,7 +54,7 @@ const Register = () => {
           <Link href={`/login`} className="">
             Have an account? <span className="text-blue-500">sign in</span>
           </Link>
-          <button className="btn btn-neutral  bg-sky-500 mt-5">Login</button>
+          <button className="btn btn-neutral  bg-sky-500 mt-5">Register</button>
         </fieldset>
       </form>
     </div>
